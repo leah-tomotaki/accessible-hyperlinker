@@ -19,10 +19,15 @@
   "permissions": [
     "storage"
   ],
+  "host_permissions": [
+    "https://*/",
+    "https://github.com/"
+  ],
   "content_scripts": [
     {
       "matches": [
-        "<all_urls>"
+        "<all_urls>",
+        "https://*/"
       ],
       "run_at": "document_idle",
       "js": [
