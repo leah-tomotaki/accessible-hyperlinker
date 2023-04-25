@@ -38,7 +38,12 @@ const get_bad_links = () => {
 
 const replace_links = (links, titles) => {
   for(var i = 0; i < links.length; i++) {
+    const linkTag = document.querySelectorAll("a[href='"+links[i]+"']")[0];
+    if (linkTag.childNodes) {
+      linkTag.childNodes[0].innerContent = titles[i];
+    } else {
     document.querySelectorAll("a[href='"+links[i]+"']")[0].innerHTML = titles[i];
+    }
   }
 }
 
