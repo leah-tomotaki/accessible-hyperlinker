@@ -15,14 +15,10 @@
 
 const is_descriptive = (inner_text) => {
   const url_regex = new RegExp('https?:\/\/.+');
-  // const test_regex = new RegExp('https://help.shortpixel.com/article/453-error-there-was-an-error-and-your-request-was-not-processed');
-  // console.log("inner html: "+inner_text);
   if(url_regex.test(inner_text)) {
-    // console.log('if: '+ inner_text);
     return inner_text.length > 25;
   }
   else {
-    // console.log('else');
     let dumb_desc = ['link', 'click', 'click here', 'more', 'more info'];
     return dumb_desc.includes(inner_text); 
   }  
@@ -60,41 +56,3 @@ chrome.runtime.sendMessage(
   }
 );
 
-
-// // Listen for message
-// chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-//   if (request.type === 'COUNT') {
-//     console.log(`Current count is ${request.payload.count}`);
-//   }
-
-//   // Send an empty response
-//   // See https://github.com/mozilla/webextension-polyfill/issues/130#issuecomment-531531890
-//   sendResponse({});
-//   return true;
-// });
-
-
-
-// let links = document.querySelectorAll('a');
-// console.log('content: '+ links);
-// const getTitle = async () => {
-//   const title = await getTitleAtUrl('https://developer.chrome.com/docs/extensions/');
-//   console.log(title.title);
-// }
-
-// const replace_links = async (matches) => {
-//   for(var i = 0; i < matches.length; i++) {
-//       // TODO: match to bad hyperlink texts
-//       if(matches[i].innerHTML === "Github") {
-//           let title = await getTitleAtUrl(matches[i].href);
-          
-//           console.log(title);
-//           title = title.title;
-//           console.log(title);
-//           matches[i].innerHTML = title;
-//       }    
-//   }
-// }
-
-
-// replace_links(matches);
