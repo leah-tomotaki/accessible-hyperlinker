@@ -11,6 +11,10 @@ import DomParser  from 'dom-parser';
 const get_title_at_url = async (url) => {
 
   try {
+    if (url.includes("mailto:")) {
+      return url.replace("mailto:", "")
+    }
+
     const response = await fetch(url);
     const html_text = await response.text()
 	  console.log(html_text);

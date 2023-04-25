@@ -24,6 +24,41 @@ const is_descriptive = (inner_text) => {
   }  
 }
 
+function allOccurrences(arr, value) {
+  const indexes = [];
+
+  arr.forEach((element, index) => {
+    if (element === value) {
+      indexes.push(index);
+    }
+  });
+
+  return indexes;
+}
+
+const find_repeats = (links) => {
+  const linkList = [... links];
+
+  const innerTextMap = linkList.map(l => l.innerText);
+
+  const textWithDuplicates = innerTextMap.filter((item, index) => innerTextMap.indexOf(item) !== index);
+  const textWithDuplicatesSet = new Set(textWithDuplicates);
+  const repeats = [... textWithDuplicatesSet].filter((item) => item !== "");
+  
+  const repeatsIndxs = repeats.map((text, i) => {
+    const indexes = [];
+
+    innerTextMap.forEach((element, index) => {
+      if (element === text) {
+        indexes.push(index);
+      }
+    });
+    return indexes
+  });
+
+  return repeatsIndxs;
+}
+
 const get_bad_links = () => {
   let links = document.querySelectorAll('a');
   let bad_links = [];
@@ -31,8 +66,13 @@ const get_bad_links = () => {
     if(is_descriptive(links[i].innerText)) {
       bad_links.push(links[i].href);
     }
+    const repeats = find_repeats(links);
+    repeats.forEach((r) => {
+      r.forEach((i) => {
+        bad_links.push(links[i].href);
+      })
+    });
   }
-  console.log(bad_links);
   return bad_links;
 }
 
@@ -42,12 +82,11 @@ const replace_links = (links, titles) => {
     if (linkTag.childNodes) {
       linkTag.childNodes[0].innerContent = titles[i];
     } else {
-    document.querySelectorAll("a[href='"+links[i]+"']")[0].innerHTML = titles[i];
+      document.querySelectorAll("a[href='"+links[i]+"']")[0].innerHTML = titles[i];
     }
   }
 }
 
-// console.log();
 chrome.runtime.sendMessage(
   {
     type: 'LINKS',
