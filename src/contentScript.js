@@ -19,7 +19,7 @@ const is_descriptive = (inner_text) => {
     return inner_text.length > 25;
   }
   else {
-    let dumb_desc = ['link', 'click', 'click here', 'more', 'more info'];
+    let dumb_desc = ['link', 'click', 'click here', 'more', 'more info', "click me", "click here!", "click me!"];
     return dumb_desc.includes(inner_text); 
   }  
 }

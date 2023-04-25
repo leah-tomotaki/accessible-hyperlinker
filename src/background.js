@@ -13,12 +13,17 @@ const get_title_at_url = async (url) => {
   try {
     const response = await fetch(url);
     const html_text = await response.text()
-	  const parser = new DomParser();
+	  console.log(html_text);
+    const parser = new DomParser();
     const htmlDoc = parser.parseFromString(html_text, 'text/html');
+
     let title = htmlDoc.getElementsByTagName('title')[0];
 
     title = title.innerHTML;
     console.log(title);
+    if(title === "") {
+      return url;
+    }
     return title;
   } catch (error) {
 
